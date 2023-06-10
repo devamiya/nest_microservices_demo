@@ -6,7 +6,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Get()
-  getHello(): string {
-    return this.authService.getHello();
+  getHello(): Promise<any> {
+    return this.authService.find();
   }
 }

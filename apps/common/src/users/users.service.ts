@@ -3,6 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Repository } from 'typeorm';
 import { Accounts } from './entities/account.entity';
+import { AccountDto, ResponseDto } from './dto/accounts.dto';
 
 @Injectable()
 export class UsersService {
@@ -15,8 +16,14 @@ export class UsersService {
     return 'This action adds a new user';
   }
 
-  findAll(): Promise<any> {
-    return this.accountsRepository.find();
+  async findAll(): Promise<ResponseDto> {
+    try {
+      const res = await this.accountsRepository.find();
+      console.log(res);
+      return { accounts: res };
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   findOne(id: number) {

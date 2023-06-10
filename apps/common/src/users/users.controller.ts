@@ -10,6 +10,8 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { GrpcMethod } from '@nestjs/microservices';
+import { AccountDto, ResponseDto, UserDto } from './dto/accounts.dto';
 
 @Controller('users')
 export class UsersController {
@@ -20,9 +22,10 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
-  @Get()
-  findAll(): Promise<any> {
-    return this.usersService.findAll();
+  @GrpcMethod('CommonService', 'find')
+  findAll(userRes: UserDto): Promise<ResponseDto> {
+    const res = this.usersService.findAll();
+    return res;
   }
 
   @Get(':id')

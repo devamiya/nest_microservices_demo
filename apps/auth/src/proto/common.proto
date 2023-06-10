@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package common;
+
+service CommonService {
+  rpc find(User) returns (Response);
+}
+
+message Account {
+  int32 user_id = 1;
+  string username = 2;
+  string password = 3;
+  string email = 4;
+}
+
+message User {
+  string name= 1;
+}
+
+message Response {
+  repeated Account accounts = 1;
+ 
+}
